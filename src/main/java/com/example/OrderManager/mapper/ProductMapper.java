@@ -8,7 +8,7 @@ import com.example.OrderManager.entity.Product;
 
 
 
-@Mapper
+@Mapper(componentModel = "spring")
 public interface ProductMapper {
     ProductMapper INSTANCE = Mappers.getMapper(ProductMapper.class);
 

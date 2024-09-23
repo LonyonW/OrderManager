@@ -28,4 +28,10 @@ public class ClientService {
         Client savedClient = clientRepo.save(client);  // Guardar el cliente
         return ClientMapper.INSTANCE.toDTO(savedClient);  // Devolver el cliente guardado como DTO
     }
+    
+    public ClientDTO findClientById(Long id) {
+        Client client = clientRepo.findById(id)
+                .orElseThrow(() -> new RuntimeException("Client not found with id: " + id));  // Maneja el caso donde no se encuentra el cliente
+        return ClientMapper.INSTANCE.toDTO(client);  // Mapear la entidad a DTO y devolver
+    }
 }

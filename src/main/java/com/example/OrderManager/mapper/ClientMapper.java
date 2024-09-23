@@ -5,7 +5,7 @@ import org.mapstruct.factory.Mappers;
 import com.example.OrderManager.dto.ClientDTO;
 import com.example.OrderManager.entity.Client;
 
-@Mapper
+@Mapper(componentModel = "spring")
 public interface ClientMapper {
     ClientMapper INSTANCE = Mappers.getMapper(ClientMapper.class);
 

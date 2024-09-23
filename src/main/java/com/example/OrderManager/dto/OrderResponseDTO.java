@@ -11,10 +11,10 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class OrderResponseDTO {
-    private Long orderId;
+    private Long id;
     private ClientDTO client;
     private List<ProductDTO> products;
     private LocalDateTime createDate;
     private Double total;
 
-}
+} 
