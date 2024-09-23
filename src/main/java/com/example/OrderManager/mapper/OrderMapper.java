@@ -12,10 +12,12 @@ import org.mapstruct.factory.Mappers;
 import java.util.List;
 
 
-// OrderMapper.java
+
 @Mapper(componentModel = "spring", uses = {ClientMapper.class, ProductMapper.class})
 public interface OrderMapper {
+
     @Mapping(target = "createDate", expression = "java(java.time.LocalDateTime.now())")
+    @Mapping(target = "client", source = "client")  // Asegúrate de que esto esté presente
     Orders toEntity(OrderCreationDTO dto, Client client, List<Product> products);
 
     @Mapping(target = "total", expression = "java(order.calculateTotal())")

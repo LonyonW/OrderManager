@@ -35,15 +35,12 @@ public class OrderService {
         Client client = clientRepo.findById(dto.getClientId())
             .orElseThrow(() -> new RuntimeException("Client not found"));
 
-        System.out.println("CLIENTEEEEEE: " + client.toString());
 
         List<Product> products = productRepo.findAllById(dto.getProductIds());
         Orders order = orderMapper.toEntity(dto, client, products);
 
-        System.out.println("Orden antes de ser guardada: " + order.toString());
 
         Orders savedOrder = orderRepo.save(order);
-        System.out.println("Orden guardada con éxito: " + savedOrder.toString());
         return orderMapper.toDto(savedOrder);
     }
 
