@@ -14,25 +14,21 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Orders {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "creation_date")
-    private LocalDateTime creationDate;
-
-    private double total;
-
     @ManyToOne
-    @JoinColumn(name = "client_id", nullable = false)
     private Client client;
 
     @ManyToMany
-    @JoinTable(
-        name = "order_products",
-        joinColumns = @JoinColumn(name = "order_id"),
-        inverseJoinColumns = @JoinColumn(name = "product_id")
-    )
     private List<Product> products;
+
+    private LocalDateTime createDate = LocalDateTime.now();
+
+    public Double calculateTotal() {
+        return products.stream()
+                       .mapToDouble(Product::getPrice)
+                       .sum();
+    }
 }

@@ -1,15 +1,18 @@
 package com.example.OrderManager.controller;
 
+//import org.hibernate.mapping.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.example.OrderManager.dto.ClientDTO;
 import com.example.OrderManager.dto.OrderCreationDTO;
+import com.example.OrderManager.dto.OrderResponseDTO;
 import com.example.OrderManager.dto.ProductDTO;
 import com.example.OrderManager.service.ClientService;
 import com.example.OrderManager.service.OrderService;
 import com.example.OrderManager.service.ProductService;
+import java.util.List;
 
 @RestController
 @RequestMapping("")
@@ -22,16 +25,19 @@ public class MainController {
     @Autowired
     private ProductService productService;
 
+
     @GetMapping("/orders")
-    public ResponseEntity<?> getAllOrders() {
-        return ResponseEntity.ok(orderService.findAllOrders());
+    public ResponseEntity<List<OrderResponseDTO>> getAllOrders() {
+        List<OrderResponseDTO> orders = orderService.getAllOrders();
+        return ResponseEntity.ok(orders);
     }
 
     @PostMapping("/orders")
     public ResponseEntity<?> createOrder(@RequestBody OrderCreationDTO orderDTO) {
     return ResponseEntity.ok(orderService.createOrder(orderDTO));
-}
+    }
 
+    
 
     @DeleteMapping("/orders/{id}")
     public ResponseEntity<?> deleteOrder(@PathVariable Long id) {

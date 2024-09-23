@@ -21,4 +21,9 @@ public class Product {
     private Long id;   
     private String name;
     private Double price;
+
+
+    public void getPrice(Double price) {
+        this.price = price;
+    }
 }

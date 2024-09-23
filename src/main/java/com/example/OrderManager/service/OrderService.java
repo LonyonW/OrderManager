@@ -21,45 +21,34 @@ public class OrderService {
 
     @Autowired
     private OrderRepo orderRepo;
-
+    
     @Autowired
     private ClientRepo clientRepo;
 
     @Autowired
-    private ProductRepo productRepo;
+    private ProductRepo productRepo;  // Inyectado con @Autowired
 
-    public List<OrderResponseDTO> findAllOrders() {
-        return orderRepo.findAll().stream()
-                .map(OrderMapper.INSTANCE::toResponseDTO)
-                .collect(Collectors.toList());
-    }
+    @Autowired
+    private OrderMapper orderMapper;
 
-    public OrderResponseDTO createOrder(OrderCreationDTO orderDTO) {
-        // Crear una nueva entidad de Orders
-        Orders order = new Orders();
+    public OrderResponseDTO createOrder(OrderCreationDTO dto) {
+        Client client = clientRepo.findById(dto.getClientId())
+            .orElseThrow(() -> new RuntimeException("Client not found"));
 
-        // Asignar el cliente a partir de su ID
-        Client client = clientRepo.findById(orderDTO.getClientId())
-                .orElseThrow(() -> new RuntimeException("Client not found"));
-        order.setClient(client);
+        List<Product> products = productRepo.findAllById(dto.getProductIds());
+        Orders order = orderMapper.toEntity(dto, client, products);
 
-        // Asignar los productos a partir de sus IDs
-        List<Product> products = productRepo.findAllById(orderDTO.getProductIds());
-        order.setProducts(products);
-
-        // Asignar la fecha de creación (parsear el string a LocalDateTime)
-        order.setCreationDate(LocalDateTime.parse(orderDTO.getOrderDate()));
-
-        // Calcular el total de la orden (precio del producto * cantidad)
-        double total = products.stream().mapToDouble(Product::getPrice).sum();
-        order.setTotal(total);
-
-        // Guardar la orden en la base de datos
         Orders savedOrder = orderRepo.save(order);
-
-        // Convertir la entidad guardada a DTO y retornarla
-        return OrderMapper.INSTANCE.toResponseDTO(savedOrder);
+        return orderMapper.toDto(savedOrder);
     }
+
+    public List<OrderResponseDTO> getAllOrders() {
+        return orderRepo.findAll().stream()
+            .map(orderMapper::toDto)
+            .collect(Collectors.toList());
+    }
+
+    
 
     public void deleteOrder(Long id) {
         orderRepo.deleteById(id);
