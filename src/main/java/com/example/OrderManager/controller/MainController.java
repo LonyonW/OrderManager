@@ -13,9 +13,12 @@ import com.example.OrderManager.service.ClientService;
 import com.example.OrderManager.service.OrderService;
 import com.example.OrderManager.service.ProductService;
 import java.util.List;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("")
+@CrossOrigin(origins = "http://localhost:3000") // Cambia esto a tu dominio permitido
 public class MainController {
 
     @Autowired
