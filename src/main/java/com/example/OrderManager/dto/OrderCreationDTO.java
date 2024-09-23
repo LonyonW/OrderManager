@@ -10,11 +10,11 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class OrderCreationDTO {
-    private Long clientId;
+    private Long customerId;
     private List<Long> productIds;
 
     public long getClientId() {
-        return clientId;
+        return customerId;
     }
 
     public List<Long> getProductIds() {

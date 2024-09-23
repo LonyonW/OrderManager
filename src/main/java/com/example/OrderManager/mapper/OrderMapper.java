@@ -21,6 +21,7 @@ public interface OrderMapper {
     Orders toEntity(OrderCreationDTO dto, Client client, List<Product> products);
 
     @Mapping(target = "total", expression = "java(order.calculateTotal())")
+    @Mapping(target = "customer", source = "client")  // Mapea client a customer
     OrderResponseDTO toDto(Orders order);
 }
 
