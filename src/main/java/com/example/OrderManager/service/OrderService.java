@@ -31,18 +31,23 @@ public class OrderService {
     @Autowired
     private OrderMapper orderMapper;
 
+
     public OrderResponseDTO createOrder(OrderCreationDTO dto) {
         Client client = clientRepo.findById(dto.getClientId())
             .orElseThrow(() -> new RuntimeException("Client not found"));
 
 
         List<Product> products = productRepo.findAllById(dto.getProductIds());
-        Orders order = orderMapper.toEntity(dto, client, products);
+        Orders order = new Orders();
+        order = orderMapper.toEntity(dto, client, products);
 
 
         Orders savedOrder = orderRepo.save(order);
         return orderMapper.toDto(savedOrder);
     }
+
+
+
 
     public List<OrderResponseDTO> getAllOrders() {
         return orderRepo.findAll().stream()

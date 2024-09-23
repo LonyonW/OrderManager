@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("")
-@CrossOrigin(origins = "http://localhost:3000") // Cambia esto a tu dominio permitido
+@CrossOrigin(origins = "http://localhost:3000") 
 public class MainController {
 
     @Autowired

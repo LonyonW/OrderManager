@@ -12,7 +12,7 @@ import java.util.List;
 @NoArgsConstructor
 public class OrderResponseDTO {
     private Long id;
-    private ClientDTO customer; //cambio
+    private ClientDTO customer; 
     private List<ProductDTO> products;
     private LocalDateTime createDate;
     private Double total;

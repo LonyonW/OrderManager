@@ -15,16 +15,26 @@ import java.util.List;
 @NoArgsConstructor
 public class Orders {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // CAMBIO A IDENTITY
     private Long id;
 
     @ManyToOne
+    @JoinColumn(name = "client_id") //added
     private Client client;
 
     @ManyToMany
+    @JoinTable(
+        name = "orders_products",
+        joinColumns = @JoinColumn(name = "orders_id"),
+        inverseJoinColumns = @JoinColumn(name = "products_id")
+    )
     private List<Product> products;
 
     private LocalDateTime createDate = LocalDateTime.now();
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public Double calculateTotal() {
         return products.stream()
