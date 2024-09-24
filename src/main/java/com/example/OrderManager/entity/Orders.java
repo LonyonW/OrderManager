@@ -9,13 +9,13 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
-@Table(name = "orders")  // Cambia el nombre de la tabla a "orders"
+@Table(name = "orders")  
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class Orders {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY) // CAMBIO A IDENTITY
+    @GeneratedValue(strategy = GenerationType.IDENTITY) 
     private Long id;
 
     @ManyToOne

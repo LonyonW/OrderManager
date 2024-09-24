@@ -21,10 +21,10 @@ public class ProductService {
                 .map(ProductMapper.INSTANCE::toDTO)
                 .collect(Collectors.toList());
     }
-    // Nuevo método para crear un producto
+
     public ProductDTO createProduct(ProductDTO productDTO) {
-        Product product = ProductMapper.INSTANCE.toEntity(productDTO);  // Mapear de DTO a entidad
-        Product savedProduct = productRepo.save(product);  // Guardar el producto
-        return ProductMapper.INSTANCE.toDTO(savedProduct);  // Devolver el producto guardado como DTO
+        Product product = ProductMapper.INSTANCE.toEntity(productDTO);  
+        Product savedProduct = productRepo.save(product);  
+        return ProductMapper.INSTANCE.toDTO(savedProduct); 
     }
 }

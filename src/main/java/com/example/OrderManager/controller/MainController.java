@@ -1,6 +1,5 @@
 package com.example.OrderManager.controller;
 
-//import org.hibernate.mapping.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -28,7 +27,6 @@ public class MainController {
     @Autowired
     private ProductService productService;
 
-
     @GetMapping("/orders")
     public ResponseEntity<List<OrderResponseDTO>> getAllOrders() {
         List<OrderResponseDTO> orders = orderService.getAllOrders();
@@ -39,8 +37,6 @@ public class MainController {
     public ResponseEntity<?> createOrder(@RequestBody OrderCreationDTO orderDTO) {
     return ResponseEntity.ok(orderService.createOrder(orderDTO));
     }
-
-    
 
     @DeleteMapping("/orders/{id}")
     public ResponseEntity<?> deleteOrder(@PathVariable Long id) {
@@ -53,7 +49,6 @@ public class MainController {
         return ResponseEntity.ok(clientService.findAllClients());
     }
 
-    // Nuevo endpoint para crear un cliente
     @PostMapping("/customers")
     public ResponseEntity<?> createClient(@RequestBody ClientDTO clientDTO) {
         return ResponseEntity.ok(clientService.createClient(clientDTO));
@@ -64,7 +59,6 @@ public class MainController {
         return ResponseEntity.ok(productService.findAllProducts());
     }
 
-    // Nuevo endpoint para crear un producto
     @PostMapping("/products")
     public ResponseEntity<?> createProduct(@RequestBody ProductDTO productDTO) {
         return ResponseEntity.ok(productService.createProduct(productDTO));

@@ -12,7 +12,6 @@ import com.example.OrderManager.repo.ProductRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -26,36 +25,28 @@ public class OrderService {
     private ClientRepo clientRepo;
 
     @Autowired
-    private ProductRepo productRepo;  // Inyectado con @Autowired
+    private ProductRepo productRepo;  
 
     @Autowired
     private OrderMapper orderMapper;
-
 
     public OrderResponseDTO createOrder(OrderCreationDTO dto) {
         Client client = clientRepo.findById(dto.getClientId())
             .orElseThrow(() -> new RuntimeException("Client not found"));
 
-
         List<Product> products = productRepo.findAllById(dto.getProductIds());
         Orders order = new Orders();
         order = orderMapper.toEntity(dto, client, products);
 
-
         Orders savedOrder = orderRepo.save(order);
         return orderMapper.toDto(savedOrder);
     }
-
-
-
 
     public List<OrderResponseDTO> getAllOrders() {
         return orderRepo.findAll().stream()
             .map(orderMapper::toDto)
             .collect(Collectors.toList());
     }
-
-    
 
     public void deleteOrder(Long id) {
         orderRepo.deleteById(id);

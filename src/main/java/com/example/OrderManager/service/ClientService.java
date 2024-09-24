@@ -22,16 +22,15 @@ public class ClientService {
                 .collect(Collectors.toList());
     }
 
-    // Nuevo método para crear un cliente
     public ClientDTO createClient(ClientDTO clientDTO) {
-        Client client = ClientMapper.INSTANCE.toEntity(clientDTO);  // Mapear de DTO a entidad
-        Client savedClient = clientRepo.save(client);  // Guardar el cliente
-        return ClientMapper.INSTANCE.toDTO(savedClient);  // Devolver el cliente guardado como DTO
+        Client client = ClientMapper.INSTANCE.toEntity(clientDTO);  
+        Client savedClient = clientRepo.save(client);  
+        return ClientMapper.INSTANCE.toDTO(savedClient);  
     }
     
     public ClientDTO findClientById(Long id) {
         Client client = clientRepo.findById(id)
-                .orElseThrow(() -> new RuntimeException("Client not found with id: " + id));  // Maneja el caso donde no se encuentra el cliente
-        return ClientMapper.INSTANCE.toDTO(client);  // Mapear la entidad a DTO y devolver
+                .orElseThrow(() -> new RuntimeException("Client not found with id: " + id)); 
+        return ClientMapper.INSTANCE.toDTO(client); 
     }
 }
